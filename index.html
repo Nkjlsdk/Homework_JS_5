@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        console.log("Задача 1. Дан объект numbers. Необходимо в консоль вывести все значения больше или равные 3");
+            const numbers = {
+                keyin1: 1,
+                keyin2: 2,
+                keyin3: 3,
+                keyin4: 4,
+                keyin5: 5,
+                keyin6: 6,
+                keyin7: 7,
+            };
+            for (let key in numbers) {
+                // console.log(numbers[key]);
+                if (numbers[key] >= 3) {
+                    console.log(numbers[key]);
+                }
+            }
+
+            for (let value in Object.values(numbers)) {
+                if (value >= 3) console.log(value);
+
+            }
+
+            console.log(Object.values(numbers).filter(elem => elem >= 3));
+
+            console.log("С помощью forEach");
+            Object.values(numbers).forEach((element, index) => {
+                if (element >= 3) console.log(element);
+            });
+
+
+
+            console.log("Задача 2. Необходимо из объекта, который лежит в константе post вывести значения, к которым приписан комментарий, в консоль");
+            const post = {
+                author: "John", // вывести этот текст
+                postId: 23,
+                comments: [
+                    {
+                        userId: 10,
+                        userName: "Alex",
+                        text: "lorem ipsum",
+                        rating: {
+                            likes: 10,
+                            dislikes: 2, // вывести это число
+                        },
+                    },
+                    {
+                        userId: 5, // вывести это число
+                        userName: "Jane",
+                        text: "lorem ipsum 2", // вывести этот текст
+                        rating: {
+                            likes: 3,
+                            dislikes: 1,
+                        },
+                    },
+                ],
+            };
+            console.log(post.author);
+            console.log(post.comments[0].rating.dislikes);
+            console.log(post.comments[1].userId);
+            console.log(post.comments[1].text);
+
+            console.log("Задача 3 Дан массив products, необходимо цену каждого продукта уменьшить на 15% используя метод forEach");
+
+            const products = [
+                {
+                    id: 3,
+                    price: 200,
+                },
+                {
+                    id: 4,
+                    price: 900,
+                },
+                {
+                    id: 1,
+                    price: 1000,
+                },
+            ];
+            products.forEach((product) => product.price = (product.price - product.price * 0.15));
+            console.log(products);
+
+            console.log("Задача 4. Необходимо вывести в консоль массив продуктов в котором есть хоть одна фотография используя метод filter. Исходные данные - массив products. Необходимо отсортировать массив products используя метод sort по цене, начиная с самой маленькой, заканчивая самой большой ценой, после чего вывести отсортированный массив в консоль");
+
+            const products_ = [
+                {
+                    id: 3,
+                    price: 127,
+                    photos: [
+                        "1.jpg",
+                        "2.jpg",
+                    ],
+                },
+                {
+                    id: 5,
+                    price: 499,
+                    photos: [],
+                },
+                {
+                    id: 10,
+                    price: 26,
+                    photos: [
+                        "3.jpg",
+                    ],
+                },
+                {
+                    id: 8,
+                    price: 78,
+                },
+            ];
+
+
+            let resultPhotps = products_.filter(item => "photos" in item && item.photos.length != 0);
+            console.log(resultPhotps);
+            console.log("");
+            let resultPhotpsProduct = products_.filter(item => item.photos && item.photos.length != 0);
+            console.log(resultPhotpsProduct);
+            console.log("");
+            let resultSort = products_.sort((a, b) => a.price - b.price);
+            console.log(resultSort);
+
+            console.log("Задача 5. Дано 2 массива. Вам необходимо объединить 2 этих массива, чтобы значения первого массива были ключами, а значения второго массива — значениями");
+
+            const en = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
+            const ru = ["понедельник", "вторник", "среда", "четверг", "пятница", "суббота", "воскресенье"];
+            const week = {};
+            for (let i = 0; i < en.length; i++) {
+                week[en[i]] = ru[i];
+            }
+            console.log(week);
+
+            console.log("Задача 6. Напишите программу, которая создает игру-викторину с набором вопросов и ответов на них. Программа позволяет пользователю вводить ответ на каждый вопрос. Программа должна проверить ответы пользователя и вывести количество правильных ответов в консоль");
+
+            let count = 0;
+            let count2 = 0;
+            const quiz = {
+                question: ["What is the capital of France?, choices: Paris, London, Berlin, Madrid", "What is the largest planet in our solar system?, choices: Jupiter, Mars, Earth, Saturn", "What is the smallest country in the world?, choices: Vatican City, Monaco, Nauru, Tuvalu"], correctAnswers: ["Paris", "Jupiter", "Vatican City"], counts: [1, 2, 3],
+
+                askQuestion: function () {
+
+                    while (this.counts.length > 0) {
+
+                        let userAnswer = prompt(`Введите ответ на вопрос ${this.question[count2]}`);
+                        if (userAnswer === this.correctAnswers[count2]) {
+                            console.log("Вы угадали");
+                            alert("Вы угадали");
+                            count++;
+
+
+                        } else console.log("Не угадали");
+                        count2++;
+                        let first = this.counts.shift();
+                        this.askQuestion();
+                    }
+
+
+                },
+
+            };
+            quiz.askQuestion();
+            console.log(`count ${count}`);
+
+     </script>
+<!--
+// 6 (не обязательное)
+// Напишите программу, которая создает игру-викторину с набором вопросов и ответов на них. Программа позволяет пользователю вводить ответ на каждый вопрос. Программа должна проверить ответы пользователя и вывести количество правильных ответов в консоль.
+
+// Объяснение к шестой задаче:
+// Эта программа создаст объект с именем quiz, который содержит несколько свойств:
+
+// questions: Массив объектов, представляющих вопросы викторины. Каждый объект вопроса будет иметь свойство подсказки для текста вопроса и свойство выбора для возможных ответов.
+// correctAnswers: Массив правильных ответов, соответствующих вопросам в массиве вопросов.
+
+// Программа будет использовать цикл for, чтобы перебирать вопросы и запрашивать у пользователя ответ. В процессе перебора сравниваем ответ пользователя с правильным ответом. Если ответ правильный, то увеличиваем кол-во правильных ответ.
+// В итоге, программа выведет в консоль количество правильных ответов и сколько всего было вопросов.
+
+// let quiz = {
+//   questions: [
+//     {prompt:  "What is the capital of France?", choices:["Paris", "London", "Berlin", "Madrid"]},
+//     {prompt: "What is the largest planet in our solar system?", choices: ["Jupiter", "Mars", "Earth", "Saturn"]},
+//     {prompt: "What is the smallest country in the world?", choices: ["Vatican City", "Monaco", "Nauru", "Tuvalu"]}
+//   ],
+//   correctAnswers: ["Paris", "Jupiter", "Vatican City"]
+// }; -->
+
+</body>
+</html>
